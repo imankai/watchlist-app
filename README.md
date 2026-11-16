@@ -78,7 +78,7 @@ com.example.watchlist
 
 ## Roadmap
 - [x] Project setup and repository
-- [ ] MVVM structure and sample data
+- [x] MVVM structure and sample data
 - [ ] Catalog, details, add and lists screens
 - [ ] Navigation with movieId argument
 - [ ] Local storage (Room)
