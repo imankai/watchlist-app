@@ -2,7 +2,6 @@ package com.example.watchlist.data
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-
 class MovieRepository {
     private val _movies = MutableStateFlow(
         listOf(
@@ -23,9 +22,7 @@ class MovieRepository {
         )
     )
     val movies: StateFlow<List<Movie>> = _movies
-
     fun getMovieById(id: Int): Movie? = _movies.value.find { it.id == id }
-
     fun toggleFavorite(id: Int) = _movies.update { list ->
         list.map { if (it.id == id) it.copy(isFavorite = !it.isFavorite) else it }
     }
@@ -33,4 +30,7 @@ class MovieRepository {
         list.map { if (it.id == id) it.copy(isWatched = !it.isWatched) else it }
     }
     fun addMovie(movie: Movie) = _movies.update { it + movie }
+    companion object {
+        val instance = MovieRepository()
+    }
 }

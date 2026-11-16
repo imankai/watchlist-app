@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.watchlist.data.MovieRepository
 
 class CatalogViewModel(
-    private val repository: MovieRepository = MovieRepository()
+    private val repository: MovieRepository = MovieRepository.instance
 ) : ViewModel() {
 
     val movies = repository.movies
