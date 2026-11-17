@@ -66,3 +66,19 @@ fun CatalogScreen(
         }
     }
 }
+
+
+
+@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
+@Composable
+fun CatalogScreenPreview() {
+    com.example.watchlist.ui.theme.WatchlistTheme(
+        dynamicColor = false
+    ) {
+        CatalogScreen(
+            onMovieClick = {},
+            onAddClick = {},
+            onListsClick = {}
+        )
+    }
+}

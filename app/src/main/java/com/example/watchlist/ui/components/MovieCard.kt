@@ -32,12 +32,19 @@ fun MovieCard(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                Text(
-                    text = "${movie.year} • ${movie.genre}"
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(text = "${movie.year}")
 
-                Text(
-                    text = "Rating: ${movie.rating}"
+                    GenreChip(
+                        genre = movie.genre
+                    )
+                }
+
+                RatingBar(
+                    rating = movie.rating
                 )
             }
 
