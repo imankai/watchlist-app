@@ -66,6 +66,7 @@ fun AddMovieScreen(
                 value = state.description,
                 onValueChange = viewModel::onDescriptionChange,
                 label = { Text("Description") },
+                placeholder = { Text("Enter a short movie description") },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
