@@ -128,3 +128,18 @@ fun ListsScreen(
         }
     }
 }
+
+
+
+@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
+@Composable
+fun ListsScreenPreview() {
+    com.example.watchlist.ui.theme.WatchlistTheme(
+        dynamicColor = false
+    ) {
+        ListsScreen(
+            onMovieClick = {},
+            onBack = {}
+        )
+    }
+}

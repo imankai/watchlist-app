@@ -84,3 +84,17 @@ fun AddMovieScreen(
         }
     }
 }
+
+
+
+@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
+@Composable
+fun AddMovieScreenPreview() {
+    com.example.watchlist.ui.theme.WatchlistTheme(
+        dynamicColor = false
+    ) {
+        AddMovieScreen(
+            onBack = {}
+        )
+    }
+}
