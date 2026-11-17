@@ -10,6 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.watchlist.viewmodel.AddMovieViewModel
 
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+
+
 @Composable
 fun AddMovieScreen(
     onBack: () -> Unit
@@ -44,6 +48,9 @@ fun AddMovieScreen(
                 onValueChange = viewModel::onYearChange,
                 label = { Text("Release Year") },
                 modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                ),
                 singleLine = true
             )
 
