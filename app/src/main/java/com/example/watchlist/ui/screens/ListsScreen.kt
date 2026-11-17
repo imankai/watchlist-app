@@ -48,6 +48,7 @@ fun ListsScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .statusBarsPadding()
                     .padding(16.dp),
                 horizontalArrangement =
                     Arrangement.SpaceBetween
