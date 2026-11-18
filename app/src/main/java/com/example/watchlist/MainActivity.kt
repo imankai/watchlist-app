@@ -12,7 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.watchlist.ui.theme.WatchlistTheme
-import com.example.watchlist.ui.screens.CatalogScreen
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +25,44 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WatchlistTheme {
-                CatalogScreen(
-                    onMovieClick = {},
-                    onAddClick = {},
-                    onListsClick = {}
-                )
-            }
+                var currentScreen by rememberSaveable {
+                    mutableStateOf("catalog")
+                }
+
+                when (currentScreen) {
+                    "catalog" -> {
+                        com.example.watchlist.ui.screens.CatalogScreen(
+                            onMovieClick = {},
+                            onAddClick = {
+                                currentScreen = "add"
+                            },
+                            onListsClick = {
+                                currentScreen = "lists"
+                            }
+                        )
+                    }
+
+                    "add" -> {
+                        com.example.watchlist.ui.screens.AddMovieScreen(
+                            onBack = {
+                                currentScreen = "catalog"
+                            }
+                        )
+                    }
+
+                    "lists" -> {
+                        com.example.watchlist.ui.screens.ListsScreen(
+                            onMovieClick = {},
+                            onBack = {
+                                currentScreen = "catalog"
+                            }
+                        )
+                    }
+                }
             }
         }
     }
+}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

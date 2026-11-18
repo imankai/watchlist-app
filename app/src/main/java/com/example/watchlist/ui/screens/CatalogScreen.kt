@@ -26,6 +26,7 @@ fun CatalogScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .statusBarsPadding()
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -49,7 +50,12 @@ fun CatalogScreen(
 
         LazyColumn(
             modifier = Modifier.padding(padding),
-            contentPadding = PaddingValues(16.dp),
+            contentPadding = PaddingValues(
+                start = 16.dp,
+                end = 16.dp,
+                top = 16.dp,
+                bottom = 96.dp
+            ),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(movies, key = { it.id }) { movie ->
