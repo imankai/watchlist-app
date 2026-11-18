@@ -1,7 +1,9 @@
 package com.example.watchlist.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -24,10 +26,20 @@ fun DetailScreen(
         .collectAsState(initial = null)
 
     movie?.let { m ->
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
             Text(m.title, style = MaterialTheme.typography.headlineMedium)
             Text("${m.year} • ${m.genre} • ${m.rating}")
             Text(m.description)
+
+            Button(onClick = { viewModel.onFavoriteClick(m.id) }) {
+                Text(if (m.isFavorite) "Remove from favorites" else "Add to favorites")
+            }
+            Button(onClick = { viewModel.onWatchedClick(m.id) }) {
+                Text(if (m.isWatched) "Mark as not watched" else "Mark as watched")
+            }
             OutlinedButton(onClick = onBack) { Text("Back") }
         }
     }
