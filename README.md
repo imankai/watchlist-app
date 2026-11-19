@@ -80,4 +80,7 @@ com.example.watchlist
 - [x] Project setup and repository
 - [x] MVVM structure and sample data
 - [x] Catalog, details, add and lists screens
-- [ ] Navigation with movieId argument
+- [x] Navigation with movieId argument
+- [ ] Room database to keep movies after the app is closed
+- [ ] TMDB API for a real movie catalog
+- [ ] Movie posters
