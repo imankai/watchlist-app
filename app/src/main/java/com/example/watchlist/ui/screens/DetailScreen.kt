@@ -1,19 +1,22 @@
 package com.example.watchlist.ui.screens
 
-import androidx.compose.material3.TextButton
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,7 +42,8 @@ fun DetailScreen(
             )
         }
     ) { padding ->
-        movie?.let { m ->
+        val m = movie
+        if (m != null) {
             Column(
                 modifier = Modifier
                     .padding(padding)
@@ -56,6 +60,15 @@ fun DetailScreen(
                 Button(onClick = { viewModel.onWatchedClick(m.id) }) {
                     Text(if (m.isWatched) "Mark as not watched" else "Mark as watched")
                 }
+            }
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Movie not found")
             }
         }
     }
