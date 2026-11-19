@@ -17,9 +17,15 @@ fun AppNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(navController = navController, startDestination = Routes.CATALOG) {
         composable(Routes.CATALOG) {
             CatalogScreen(
-                onMovieClick = { id -> navController.navigate(Routes.detail(id)) },
-                onAddClick = { navController.navigate(Routes.ADD) },
-                onListsClick = { navController.navigate(Routes.LISTS) }
+                onMovieClick = { id ->
+                    navController.navigate(Routes.detail(id)) { launchSingleTop = true }
+                },
+                onAddClick = {
+                    navController.navigate(Routes.ADD) { launchSingleTop = true }
+                },
+                onListsClick = {
+                    navController.navigate(Routes.LISTS) { launchSingleTop = true }
+                }
             )
         }
         composable(
@@ -37,7 +43,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController()) {
         }
         composable(Routes.LISTS) {
             ListsScreen(
-                onMovieClick = { id -> navController.navigate(Routes.detail(id)) },
+                onMovieClick = { id ->
+                    navController.navigate(Routes.detail(id)) { launchSingleTop = true }
+                },
                 onBack = { navController.popBackStack() }
             )
         }
