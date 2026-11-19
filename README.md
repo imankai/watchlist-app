@@ -10,7 +10,7 @@ Kotlin and Jetpack Compose.
 ## Group members
 - Imangali Kairatuly
 - Ulas Kali
-- Yertay Amankeldi
+- Yertay Amangeldi
 
 ## Team responsibilities
 | Member | Area |
@@ -81,6 +81,3 @@ com.example.watchlist
 - [x] MVVM structure and sample data
 - [x] Catalog, details, add and lists screens
 - [x] Navigation with movieId argument
-- [ ] Room database to keep movies after the app is closed
-- [ ] TMDB API for a real movie catalog
-- [ ] Movie posters
