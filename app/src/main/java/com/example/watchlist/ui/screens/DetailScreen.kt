@@ -51,8 +51,17 @@ fun DetailScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(m.title, style = MaterialTheme.typography.headlineMedium)
-                Text("${m.year} • ${m.genre} • ${m.rating}")
-                Text(m.description)
+                Text(
+                    text = "★ ${m.rating}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = "${m.year} • ${m.genre}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(m.description, style = MaterialTheme.typography.bodyLarge)
 
                 Button(onClick = { viewModel.onFavoriteClick(m.id) }) {
                     Text(if (m.isFavorite) "Remove from favorites" else "Add to favorites")
