@@ -39,6 +39,7 @@ fun CatalogScreen(
     onMovieClick: (Int) -> Unit,
     onAddClick: () -> Unit,
     onListsClick: () -> Unit,
+    onSettingsClick: () -> Unit = {},
     viewModel: CatalogViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -61,8 +62,13 @@ fun CatalogScreen(
                     style = MaterialTheme.typography.headlineMedium
                 )
 
-                TextButton(onClick = onListsClick) {
-                    Text("My Lists")
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextButton(onClick = onListsClick) {
+                        Text("My Lists")
+                    }
+                    TextButton(onClick = onSettingsClick) {
+                        Text("Settings")
+                    }
                 }
             }
         },
