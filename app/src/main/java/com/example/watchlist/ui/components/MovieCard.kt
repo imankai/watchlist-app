@@ -24,7 +24,10 @@ fun MovieCard(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            PosterPlaceholder(title = movie.title)
+            MoviePoster(
+                title = movie.title,
+                posterUrl = movie.posterUrl
+            )
             Spacer(modifier = Modifier.width(12.dp))
 
             Column(
