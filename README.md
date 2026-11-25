@@ -81,3 +81,11 @@ com.example.watchlist
 - [x] MVVM structure and sample data
 - [x] Catalog, details, add and lists screens
 - [x] Navigation with movieId argument
+
+## Setup TMDB API Key
+To build and run this project locally, you need a free API key from [The Movie Database (TMDB)](https://www.themoviedb.org/):
+1. Create an account on TMDB and generate an API Key (v3 auth) in **Settings → API**.
+2. Open or create the `local.properties` file in the root directory of the project.
+3. Add your key to `local.properties` (this file is ignored by Git and should not be committed):
+   ```properties
+   TMDB_API_KEY=your_api_key_here
