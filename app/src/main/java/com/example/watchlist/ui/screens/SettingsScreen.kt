@@ -17,15 +17,33 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.watchlist.ui.theme.WatchlistTheme
+import com.example.watchlist.viewmodel.SettingsViewModel
+
+@Composable
+fun SettingsScreen(
+    onBack: () -> Unit,
+    viewModel: SettingsViewModel = viewModel()
+) {
+    val isDarkTheme by viewModel.darkTheme.collectAsState()
+
+    SettingsContent(
+        isDarkTheme = isDarkTheme,
+        onDarkThemeChange = { viewModel.setDarkTheme(it) },
+        onBack = onBack
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(
+private fun SettingsContent(
     isDarkTheme: Boolean,
     onDarkThemeChange: (Boolean) -> Unit,
     onBack: () -> Unit,
@@ -94,7 +112,7 @@ fun SettingsScreen(
 @Composable
 private fun SettingsScreenLightPreview() {
     WatchlistTheme(darkTheme = false, dynamicColor = false) {
-        SettingsScreen(
+        SettingsContent(
             isDarkTheme = false,
             onDarkThemeChange = {},
             onBack = {}
@@ -106,7 +124,7 @@ private fun SettingsScreenLightPreview() {
 @Composable
 private fun SettingsScreenDarkPreview() {
     WatchlistTheme(darkTheme = true, dynamicColor = false) {
-        SettingsScreen(
+        SettingsContent(
             isDarkTheme = true,
             onDarkThemeChange = {},
             onBack = {}
