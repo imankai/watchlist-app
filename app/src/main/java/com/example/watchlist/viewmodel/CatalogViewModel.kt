@@ -63,7 +63,11 @@ class CatalogViewModel(
             _errorMessage.value = null
             val result = remoteRepository.getPopularMovies()
             result.onFailure { exception ->
-                _errorMessage.value = exception.localizedMessage ?: "Failed to load movies"
+                _errorMessage.value = when (exception) {
+                    is java.net.UnknownHostException -> "No internet connection. Check your network and try again."
+                    is java.net.SocketTimeoutException -> "Request timed out. Please try again."
+                    else -> exception.localizedMessage ?: "Failed to load movies"
+                }
             }
             _isLoading.value = false
         }
