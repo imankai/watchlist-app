@@ -28,4 +28,8 @@ class DetailViewModel(
         remoteRepository.toggleWatched(id)
         localRepository.toggleWatched(id)
     }
+
+    fun onDeleteClick(id: Int) {
+        // TODO: delete from Room
+    }
 }
