@@ -8,5 +8,6 @@ data class Movie(
     val description: String,
     val rating: Double,
     val isWatched: Boolean = false,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val posterUrl: String? = null
 )
