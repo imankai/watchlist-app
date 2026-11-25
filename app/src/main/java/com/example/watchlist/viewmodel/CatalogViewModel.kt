@@ -36,6 +36,16 @@ class CatalogViewModel(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), repository.movies.value)
 
+    val uiState: StateFlow<MoviesUiState> = movies
+        .map { list ->
+            if (list.isEmpty()) MoviesUiState.Empty else MoviesUiState.Success(list)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), MoviesUiState.Loading)
+
+    fun retry() {
+
+    }
+
     fun onGenreSelected(genre: String?) {
         _selectedGenre.value = genre
     }
