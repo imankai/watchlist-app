@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -90,6 +91,18 @@ fun DetailScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(if (m.isWatched) "Mark as not watched" else "Mark as watched")
+                }
+                OutlinedButton(
+                    onClick = {
+                        viewModel.onDeleteClick(m.id)
+                        onBack()
+                    },
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Delete movie")
                 }
             }
         } else {
