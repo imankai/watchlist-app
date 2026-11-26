@@ -11,6 +11,7 @@ import com.example.watchlist.ui.screens.AddMovieScreen
 import com.example.watchlist.ui.screens.CatalogScreen
 import com.example.watchlist.ui.screens.DetailScreen
 import com.example.watchlist.ui.screens.ListsScreen
+import com.example.watchlist.ui.screens.SettingsScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController = rememberNavController()) {
@@ -25,6 +26,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController()) {
                 },
                 onListsClick = {
                     navController.navigate(Routes.LISTS) { launchSingleTop = true }
+                },
+                onSettingsClick = {
+                    navController.navigate(Routes.SETTINGS) { launchSingleTop = true }
                 }
             )
         }
@@ -48,6 +52,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController()) {
                 },
                 onBack = { navController.popBackStack() }
             )
+        }
+        composable(Routes.SETTINGS) {
+            SettingsScreen(onBack = { navController.popBackStack() })
         }
     }
 }

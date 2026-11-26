@@ -1,35 +1,48 @@
-
 package com.example.watchlist.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.watchlist.ui.components.EmptyView
 import com.example.watchlist.ui.components.MovieCard
+import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.viewmodel.ListsViewModel
 
 @Composable
 fun ListsScreen(
     onMovieClick: (Int) -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    viewModel: ListsViewModel = viewModel()
 ) {
-    val viewModel = remember { ListsViewModel() }
+    val wantToWatch by viewModel.wantToWatch.collectAsState(initial = emptyList())
+    val watched by viewModel.watched.collectAsState(initial = emptyList())
+    val favorites by viewModel.favorites.collectAsState(initial = emptyList())
 
-    val wantToWatch by viewModel.wantToWatch
-        .collectAsState(initial = emptyList())
-
-    val watched by viewModel.watched
-        .collectAsState(initial = emptyList())
-
-    val favorites by viewModel.favorites
-        .collectAsState(initial = emptyList())
-
-    var selectedTab by remember {
-        mutableIntStateOf(0)
-    }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     val tabs = listOf(
         "Want to Watch",
@@ -43,6 +56,12 @@ fun ListsScreen(
         else -> favorites
     }
 
+    val emptyMessage = when (selectedTab) {
+        0 -> "No movies in your Want to Watch list yet"
+        1 -> "No watched movies yet"
+        else -> "No favorite movies yet"
+    }
+
     Scaffold(
         topBar = {
             Row(
@@ -50,8 +69,8 @@ fun ListsScreen(
                     .fillMaxWidth()
                     .statusBarsPadding()
                     .padding(16.dp),
-                horizontalArrangement =
-                    Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "My Lists",
@@ -64,7 +83,6 @@ fun ListsScreen(
             }
         }
     ) { padding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -74,46 +92,35 @@ fun ListsScreen(
                 tabs.forEachIndexed { index, title ->
                     Tab(
                         selected = selectedTab == index,
-                        onClick = {
-                            selectedTab = index
-                        },
-                        text = {
-                            Text(title)
-                        }
+                        onClick = { selectedTab = index },
+                        text = { Text(title) }
                     )
                 }
             }
 
             if (currentMovies.isEmpty()) {
-                Text(
-                    text = "No movies in this list",
-                    modifier = Modifier.padding(24.dp)
+                EmptyView(
+                    text = emptyMessage,
+                    modifier = Modifier.weight(1f)
                 )
             } else {
                 LazyColumn(
                     contentPadding = PaddingValues(16.dp),
-                    verticalArrangement =
-                        Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(
-                        currentMovies,
+                        items = currentMovies,
                         key = { it.id }
                     ) { movie ->
                         Column {
                             MovieCard(
                                 movie = movie,
-                                onClick = {
-                                    onMovieClick(movie.id)
-                                },
-                                onFavoriteClick = {
-                                    viewModel.onFavoriteClick(movie.id)
-                                }
+                                onClick = { onMovieClick(movie.id) },
+                                onFavoriteClick = { viewModel.onFavoriteClick(movie.id) }
                             )
 
                             TextButton(
-                                onClick = {
-                                    viewModel.onWatchedClick(movie.id)
-                                }
+                                onClick = { viewModel.onWatchedClick(movie.id) }
                             ) {
                                 Text(
                                     if (movie.isWatched)
@@ -130,14 +137,10 @@ fun ListsScreen(
     }
 }
 
-
-
-@androidx.compose.ui.tooling.preview.Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun ListsScreenPreview() {
-    com.example.watchlist.ui.theme.WatchlistTheme(
-        dynamicColor = false
-    ) {
+    WatchlistTheme(dynamicColor = false) {
         ListsScreen(
             onMovieClick = {},
             onBack = {}
